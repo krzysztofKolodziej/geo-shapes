@@ -11,10 +11,10 @@ import org.hibernate.type.SqlTypes;
 import java.util.Map;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "shapes")
 public class Shape {
 
