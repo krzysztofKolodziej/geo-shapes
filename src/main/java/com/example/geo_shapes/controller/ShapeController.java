@@ -1,6 +1,7 @@
 package com.example.geo_shapes.controller;
 
 import com.example.geo_shapes.dto.ShapeRequest;
+import com.example.geo_shapes.dto.ShapeResponse;
 import com.example.geo_shapes.service.ShapeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,4 +23,8 @@ public class ShapeController {
         return ResponseEntity.status(HttpStatus.OK).body("Geometric figure added successfully " + shapeRequest.type());
     }
 
+    @GetMapping
+    public ResponseEntity<List<ShapeResponse>> getShapesByType(@RequestParam String type) {
+        return ResponseEntity.status(HttpStatus.OK).body(shapeService.getShapes(type));
+    }
 }
