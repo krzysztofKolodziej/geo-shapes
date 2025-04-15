@@ -16,11 +16,11 @@ public class ShapeService {
     private final Map<String, ShapeHandler> handlers;
     private final ShapeRepository shapeRepository;
 
-    public Shape addShape(ShapeRequest shapeRequest) {
+    public void addShape(ShapeRequest shapeRequest) {
         String type = shapeRequest.type().toLowerCase();
         ShapeHandler handler = handlers.get(type);
 
         Shape handle = handler.handle(shapeRequest.parameters());
-        return shapeRepository.save(handle);
+        shapeRepository.save(handle);
     }
 }

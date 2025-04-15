@@ -4,6 +4,6 @@ import com.example.geo_shapes.model.Shape;
 
 import java.util.Map;
 
-interface ShapeHandler {
+public interface ShapeHandler {
     Shape handle(Map<String, Object> parameters);
 }
