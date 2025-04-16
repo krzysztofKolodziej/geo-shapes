@@ -22,8 +22,9 @@ public class Shape {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ShapeType type;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> parameters;
+    private Map<String, Number> parameters;
 }

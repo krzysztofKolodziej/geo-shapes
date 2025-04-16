@@ -4,6 +4,6 @@ import java.util.Map;
 
 public record ShapeResponse(
         String type,
-        Map<String, Object> parameters
+        Map<String, Number> parameters
 ) {
 }
