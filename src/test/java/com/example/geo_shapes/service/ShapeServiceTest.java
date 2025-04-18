@@ -2,9 +2,11 @@ package com.example.geo_shapes.service;
 
 import com.example.geo_shapes.dto.ShapeRequest;
 import com.example.geo_shapes.dto.ShapeResponse;
+import com.example.geo_shapes.exception.ShapeInvalidTypeException;
 import com.example.geo_shapes.handler.ShapeHandler;
 import com.example.geo_shapes.model.Shape;
 import com.example.geo_shapes.model.ShapeType;
+import com.example.geo_shapes.model.Square;
 import com.example.geo_shapes.repository.ShapeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +40,7 @@ class ShapeServiceTest {
         // given
         ShapeRequest request = new ShapeRequest("square", Map.of("a", 5));
         ShapeHandler mockHandler = mock(ShapeHandler.class);
-        Shape shape = new Shape();
+        Shape shape = new Square();
         when(handlers.get("SQUARE")).thenReturn(mockHandler);
         when(mockHandler.handle(request.parameters())).thenReturn(shape);
 
@@ -56,14 +58,15 @@ class ShapeServiceTest {
         when(handlers.get("TRIANGLE")).thenReturn(null);
 
         // when / then
-        assertThrows(IllegalArgumentException.class, () -> shapeService.addShape(request));
+        assertThrows(ShapeInvalidTypeException.class, () -> shapeService.addShape(request));
     }
 
     @Test
     void shouldReturnShapesOfType() {
         // given
-        Shape shape = new Shape();
+        Shape shape = new Square();
         shape.setType(ShapeType.SQUARE);
+        when(shapeRepository.existsByType(ShapeType.SQUARE)).thenReturn(true);
         when(shapeRepository.findByType(ShapeType.SQUARE)).thenReturn(List.of(shape));
         when(shapeMapper.toDto(shape)).thenReturn(new ShapeResponse("SQUARE", Map.of("a", 5)));
 

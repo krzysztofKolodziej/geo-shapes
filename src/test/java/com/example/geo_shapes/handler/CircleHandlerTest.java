@@ -1,5 +1,6 @@
 package com.example.geo_shapes.handler;
 
+import com.example.geo_shapes.exception.InvalidShapeParameterException;
 import com.example.geo_shapes.model.Shape;
 import com.example.geo_shapes.model.ShapeType;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ class CircleHandlerTest {
     void shouldThrowExceptionWhenMoreThanOneParameter() {
         Map<String, Number> params = Map.of("r", 3.5, "extra", 2);
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> handler.handle(params));
+        InvalidShapeParameterException ex = assertThrows(InvalidShapeParameterException.class, () -> handler.handle(params));
         assertEquals("Circle should have only one parameter", ex.getMessage());
     }
 }

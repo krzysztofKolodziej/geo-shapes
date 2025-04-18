@@ -2,6 +2,8 @@ package com.example.geo_shapes.service;
 
 import com.example.geo_shapes.dto.ShapeRequest;
 import com.example.geo_shapes.dto.ShapeResponse;
+import com.example.geo_shapes.exception.ShapeInvalidTypeException;
+import com.example.geo_shapes.exception.ShapeNotFoundException;
 import com.example.geo_shapes.handler.ShapeHandler;
 import com.example.geo_shapes.model.Shape;
 import com.example.geo_shapes.model.ShapeType;
@@ -24,8 +26,9 @@ public class ShapeService {
     public void addShape(ShapeRequest shapeRequest) {
         String type = shapeRequest.type().toUpperCase();
         ShapeHandler handler = handlers.get(type);
+
         Optional.ofNullable(handler).orElseThrow(() ->
-                new IllegalArgumentException("Unsupported shape type: " + type)
+                new ShapeInvalidTypeException(type)
         );
 
         Shape handle = handler.handle(shapeRequest.parameters());
@@ -34,6 +37,10 @@ public class ShapeService {
 
     public List<ShapeResponse> getShapes(String type) {
         ShapeType shapeType = ShapeType.valueOf(type.toUpperCase());
+
+        if (!shapeRepository.existsByType(shapeType)) {
+            throw new ShapeNotFoundException(type);
+        }
 
         return shapeRepository.findByType(shapeType).stream()
                 .map(shapeMapper::toDto)

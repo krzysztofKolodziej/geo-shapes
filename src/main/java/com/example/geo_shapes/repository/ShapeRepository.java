@@ -9,5 +9,8 @@ import java.util.List;
 
 @Repository
 public interface ShapeRepository extends JpaRepository<Shape, Long> {
+
     List<Shape> findByType(ShapeType type);
+
+    boolean existsByType(ShapeType type);
 }

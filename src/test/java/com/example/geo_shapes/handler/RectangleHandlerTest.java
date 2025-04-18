@@ -1,5 +1,6 @@
 package com.example.geo_shapes.handler;
 
+import com.example.geo_shapes.exception.InvalidShapeParameterException;
 import com.example.geo_shapes.model.Shape;
 import com.example.geo_shapes.model.ShapeType;
 import org.junit.jupiter.api.Test;
@@ -22,19 +23,10 @@ class RectangleHandlerTest {
     }
 
     @Test
-    void shouldHandleValidRectangleWithOneParam() {
-        Map<String, Number> params = Map.of("a", 5);
-        Shape shape = handler.handle(params);
-
-        assertEquals(ShapeType.RECTANGLE, shape.getType());
-        assertEquals(1, shape.getParameters().size());
-    }
-
-    @Test
     void shouldThrowExceptionForTooManyParams() {
         Map<String, Number> params = Map.of("a", 5, "b", 10, "c", 15);
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> handler.handle(params));
-        assertEquals("Rectangle should have one or two parameters", ex.getMessage());
+        InvalidShapeParameterException ex = assertThrows(InvalidShapeParameterException.class, () -> handler.handle(params));
+        assertEquals("Rectangle should have two parameters", ex.getMessage());
     }
 }

@@ -11,12 +11,14 @@ import org.hibernate.type.SqlTypes;
 import java.util.Map;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "discriminator")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "shapes")
-public class Shape {
+public abstract class Shape {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

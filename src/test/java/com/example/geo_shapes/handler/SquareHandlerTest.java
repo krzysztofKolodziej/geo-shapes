@@ -1,5 +1,6 @@
 package com.example.geo_shapes.handler;
 
+import com.example.geo_shapes.exception.InvalidShapeParameterException;
 import com.example.geo_shapes.model.Shape;
 import com.example.geo_shapes.model.ShapeType;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ class SquareHandlerTest {
     void shouldThrowExceptionForTooManyParams() {
         Map<String, Number> params = Map.of("a", 5, "b", 10);
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> handler.handle(params));
+        InvalidShapeParameterException ex = assertThrows(InvalidShapeParameterException.class, () -> handler.handle(params));
         assertEquals("Square should have only one parameter", ex.getMessage());
     }
 }
