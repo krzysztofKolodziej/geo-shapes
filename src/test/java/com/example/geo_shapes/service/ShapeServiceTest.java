@@ -38,7 +38,7 @@ class ShapeServiceTest {
     @Test
     void shouldAddShape_whenTypeIsValid() {
         // given
-        ShapeRequest request = new ShapeRequest("square", Map.of("a", 5));
+        ShapeRequest request = new ShapeRequest("square", Map.of("a", 5.0));
         ShapeHandler mockHandler = mock(ShapeHandler.class);
         Shape shape = new Square();
         when(handlers.get("SQUARE")).thenReturn(mockHandler);
@@ -54,7 +54,7 @@ class ShapeServiceTest {
     @Test
     void shouldThrowException_whenTypeIsInvalid() {
         // given
-        ShapeRequest request = new ShapeRequest("triangle", Map.of("a", 5));
+        ShapeRequest request = new ShapeRequest("triangle", Map.of("a", 5.0));
         when(handlers.get("TRIANGLE")).thenReturn(null);
 
         // when / then
@@ -68,7 +68,7 @@ class ShapeServiceTest {
         shape.setType(ShapeType.SQUARE);
         when(shapeRepository.existsByType(ShapeType.SQUARE)).thenReturn(true);
         when(shapeRepository.findByType(ShapeType.SQUARE)).thenReturn(List.of(shape));
-        when(shapeMapper.toDto(shape)).thenReturn(new ShapeResponse("SQUARE", Map.of("a", 5)));
+        when(shapeMapper.toDto(shape)).thenReturn(new ShapeResponse("SQUARE", Map.of("a", 5.0)));
 
         // when
         List<ShapeResponse> result = shapeService.getShapes("square");

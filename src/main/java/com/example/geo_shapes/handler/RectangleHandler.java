@@ -12,7 +12,7 @@ import java.util.Map;
 class RectangleHandler implements ShapeHandler {
 
     @Override
-    public Shape handle(Map<String, Number> parameters) {
+    public Shape handle(Map<String, Double> parameters) {
         if (parameters.size() != 2) {
             throw new InvalidShapeParameterException("Rectangle should have two parameters");
         }

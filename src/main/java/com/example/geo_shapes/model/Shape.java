@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.Map;
 
@@ -27,6 +25,12 @@ public abstract class Shape {
     @Enumerated(EnumType.STRING)
     private ShapeType type;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Number> parameters;
+    @ElementCollection
+    @CollectionTable(
+            name = "shape_parameters",
+            joinColumns = @JoinColumn(name = "shape_id")
+    )
+    @MapKeyColumn(name = "param_key")
+    @Column(name = "param_value")
+    private Map<String, Double> parameters;
 }

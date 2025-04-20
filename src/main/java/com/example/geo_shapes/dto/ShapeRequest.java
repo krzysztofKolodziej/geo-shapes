@@ -11,6 +11,6 @@ public record ShapeRequest(
         String type,
         @NotEmpty(message = "Value must not be empty")
         @ValidShapeParameters
-        Map<String, Number> parameters
+        Map<String, Double> parameters
 ) {
 }

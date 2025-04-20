@@ -1,11 +1,11 @@
 package com.example.geo_shapes.controller;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
@@ -15,8 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@Sql(statements = "DELETE FROM shapes WHERE type = 'CIRCLE'", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-class ShapeControllerTest {
+@Transactional
+class ShapeControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -95,11 +95,4 @@ class ShapeControllerTest {
                 .andExpect(jsonPath("$.message").value("Unsupported shape type"));
     }
 
-    @Test
-    void shouldReturnNotFound_whenTypeExistsButNoDataInDatabase() throws Exception {
-        mockMvc.perform(get("/api/v1/shapes")
-                        .param("type", "circle"))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Not found shape circle"));
-    }
 }

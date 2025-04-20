@@ -15,7 +15,7 @@ class SquareHandlerTest {
 
     @Test
     void shouldHandleValidSquare() {
-        Map<String, Number> params = Map.of("a", 5);
+        Map<String, Double> params = Map.of("a", 5.0);
         Shape shape = handler.handle(params);
 
         assertEquals(ShapeType.SQUARE, shape.getType());
@@ -24,7 +24,7 @@ class SquareHandlerTest {
 
     @Test
     void shouldThrowExceptionForTooManyParams() {
-        Map<String, Number> params = Map.of("a", 5, "b", 10);
+        Map<String, Double> params = Map.of("a", 5.0, "b", 10.0);
 
         InvalidShapeParameterException ex = assertThrows(InvalidShapeParameterException.class, () -> handler.handle(params));
         assertEquals("Square should have only one parameter", ex.getMessage());

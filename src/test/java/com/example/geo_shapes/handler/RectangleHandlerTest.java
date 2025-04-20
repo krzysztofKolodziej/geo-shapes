@@ -15,7 +15,7 @@ class RectangleHandlerTest {
 
     @Test
     void shouldHandleValidRectangleWithTwoParams() {
-        Map<String, Number> params = Map.of("a", 5, "b", 10);
+        Map<String, Double> params = Map.of("a", 5.0, "b", 10.0);
         Shape shape = handler.handle(params);
 
         assertEquals(ShapeType.RECTANGLE, shape.getType());
@@ -24,7 +24,7 @@ class RectangleHandlerTest {
 
     @Test
     void shouldThrowExceptionForTooManyParams() {
-        Map<String, Number> params = Map.of("a", 5, "b", 10, "c", 15);
+        Map<String, Double> params = Map.of("a", 5.0, "b", 10.0, "c", 15.0);
 
         InvalidShapeParameterException ex = assertThrows(InvalidShapeParameterException.class, () -> handler.handle(params));
         assertEquals("Rectangle should have two parameters", ex.getMessage());

@@ -13,13 +13,13 @@ class ShapeParametersValidatorTest {
 
     @Test
     void shouldReturnTrueForAllPositiveValues() {
-        Map<String, Number> params = Map.of("a", 5, "b", 10.5);
+        Map<String, Double> params = Map.of("a", 5.0, "b", 10.5);
         assertTrue(validator.isValid(params, null));
     }
 
     @Test
     void shouldReturnFalseForNegativeValue() {
-        Map<String, Number> params = Map.of("a", -5);
+        Map<String, Double> params = Map.of("a", -5.0);
         assertFalse(validator.isValid(params, null));
     }
 
@@ -35,7 +35,7 @@ class ShapeParametersValidatorTest {
 
     @Test
     void shouldReturnFalseForNullValueInMap() {
-        Map<String, Number> params = new HashMap<>();
+        Map<String, Double> params = new HashMap<>();
         params.put("a", null);
         assertFalse(validator.isValid(params, null));
     }

@@ -16,7 +16,7 @@ class CircleHandlerTest {
 
     @Test
     void shouldHandleValidCircle() {
-        Map<String, Number> params = Map.of("r", 3.5);
+        Map<String, Double> params = Map.of("r", 3.5);
         Shape shape = handler.handle(params);
 
         assertEquals(ShapeType.CIRCLE, shape.getType());
@@ -25,7 +25,7 @@ class CircleHandlerTest {
 
     @Test
     void shouldThrowExceptionWhenMoreThanOneParameter() {
-        Map<String, Number> params = Map.of("r", 3.5, "extra", 2);
+        Map<String, Double> params = Map.of("r", 3.5, "extra", 2.0);
 
         InvalidShapeParameterException ex = assertThrows(InvalidShapeParameterException.class, () -> handler.handle(params));
         assertEquals("Circle should have only one parameter", ex.getMessage());

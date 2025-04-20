@@ -12,7 +12,7 @@ import java.util.Map;
 class SquareHandler implements ShapeHandler {
 
     @Override
-    public Shape handle(Map<String, Number> parameters) {
+    public Shape handle(Map<String, Double> parameters) {
         if (parameters.size() > 1) {
             throw new InvalidShapeParameterException("Square should have only one parameter");
         }

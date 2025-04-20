@@ -12,7 +12,7 @@ import java.util.Map;
 class CircleHandler implements ShapeHandler {
 
     @Override
-    public Shape handle(Map<String, Number> parameters) {
+    public Shape handle(Map<String, Double> parameters) {
         if (parameters.size() > 1) {
             throw new InvalidShapeParameterException("Circle should have only one parameter");
         }
